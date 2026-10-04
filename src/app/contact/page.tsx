@@ -90,7 +90,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex-1">
                   <span className="text-xs font-bold text-neutral-400 block mb-1">
-                    أرقام الطلبات والدليفري:
+                    رقم الطلب والدليفري والواتساب:
                   </span>
                   <div className="space-y-1.5" dir="ltr">
                     {restaurantInfo.phones.map((p, idx) => (
@@ -192,7 +192,7 @@ export default function ContactPage() {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="01286865908"
+                      placeholder="01286374749"
                       required
                       dir="ltr"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-[#faf6f0] text-sm focus:outline-none focus:border-[#781016] text-right"

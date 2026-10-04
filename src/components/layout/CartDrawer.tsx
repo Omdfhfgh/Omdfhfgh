@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   ShoppingBag,
@@ -40,8 +41,6 @@ export function CartDrawer() {
   const [customerAddress, setCustomerAddress] = useState("");
   const [customerNotes, setCustomerNotes] = useState("");
 
-  if (!isOpen) return null;
-
   const handleSubmitOrder = (e: React.FormEvent) => {
     e.preventDefault();
     const data: CustomerOrderData = {
@@ -55,15 +54,31 @@ export function CartDrawer() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden" dir="rtl">
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
-        onClick={() => setIsOpen(false)}
-      />
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden" dir="rtl">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+            onClick={() => setIsOpen(false)}
+          />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col h-full animate-in slide-in-from-right duration-300">
+          <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10 pointer-events-none">
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
+              className="w-screen max-w-md bg-white shadow-2xl flex flex-col h-full pointer-events-auto"
+            >
           {/* Header */}
           <div className="p-4 sm:p-5 bg-[#781016] text-white flex items-center justify-between border-b border-[#a97314]/30">
             <div className="flex items-center gap-2.5">
@@ -264,7 +279,7 @@ export function CartDrawer() {
                       type="tel"
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      placeholder="مثال: 01286865908"
+                      placeholder="مثال: 01286374749"
                       required
                       dir="ltr"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-[#781016] bg-neutral-50 text-right"
@@ -333,8 +348,10 @@ export function CartDrawer() {
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
+  )}
+</AnimatePresence>
   );
 }

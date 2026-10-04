@@ -33,7 +33,7 @@ export async function generateMetadata({
 
   return {
     title: `${item.name} | ${restaurantInfo.name}`,
-    description: `${item.description} - اطلب الآن من مطعم العشايشي بالواسطي: 01286865908`,
+    description: `${item.description} - اطلب الآن من مطعم العشايشي بالواسطي: ${restaurantInfo.phones[0]}`,
     openGraph: {
       title: `${item.name} - مطعم العشايشي`,
       description: item.description,
